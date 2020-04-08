@@ -1,16 +1,17 @@
 import React from "react";
-import Unity, { UnityContent } from "react-unity-webgl";
+import { Switch, BrowserRouter, Route } from "react-router-dom";
+//import PrivateRoute from "./Routes/PrivateRoutes";
+import LandingPage from "./Views/LandingPage.js";
 import "./App.css";
-
-const unityContent = new UnityContent(
-  "MyGame/Build/MyGame.json",
-  "MyGame/Build/UnityLoader.js"
-);
 
 function App() {
   return (
     <div className="App">
-      <Unity unityContent={unityContent} />
+      <BrowserRouter>
+        <Switch>
+          <Route exact component={LandingPage} path="/" />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
