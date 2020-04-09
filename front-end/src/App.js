@@ -3,6 +3,7 @@ import { Switch, BrowserRouter, Route } from "react-router-dom";
 //import PrivateRoute from "./Routes/PrivateRoutes";
 import GamingPage from "./Views/GamingPage.js";
 import LandingPage from "./Views/LandingPage.js";
+import receiver from "./Views/test.js";
 import "./App.css";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Switch>
           <Route exact component={GamingPage} path="/game" />
           <Route exact component={LandingPage} path="/" />
+          <Route exact component={receiver} path="/test" />
         </Switch>
       </BrowserRouter>
     </div>
