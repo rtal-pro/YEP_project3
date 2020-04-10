@@ -3,66 +3,71 @@ import Randomstring from "randomstring";
 import Peer from "peerjs";
 
 function Sender() {
-  const [rcev, setRcev] = useState("");
-  const [id, setId] = useState();
-  const [conn, setConn] = useState();
-  const [peer, setPeer] = useState();
+  var peer = null;
+  var conn = null;
+  var roomId = "room";
 
-  function PeerMaker(props) {
-    setPeer(
-      new Peer(id, {
-        host: "localhost",
-        port: 4000,
-        path: "/",
-        debug: 3,
-        config: {
-          iceServers: [
-            { url: "stun:stun1.l.google.com:19302" },
-            {
-              url: "turn:numb.viagenie.ca",
-              credential: "Rodtal59",
-              username: "rodolphe.tal@epitech.eu",
-            },
-          ],
-        },
-      })
-    );
-  }
-
-  const setSender = (event) => {
-    setId(event.target.value);
-  };
-
-  const setReciever = (event) => {
-    setRcev(event.target.value);
-  };
-
-  function connecty() {
-    setConn(peer.connect(rcev));
-  }
-
-  function sendy() {
-    this.conn.on("open", () => {
-      conn.send("hi!");
-      console.log("hiiiiiiii!!!!");
+  function initialize() {
+    peer = new Peer(null, {
+      host: "localhost",
+      port: 4000,
+      path: "/",
+      debug: 2,
+      config: {
+        iceServers: [
+          { url: "stun:stun1.l.google.com:19302" },
+          {
+            url: "turn:numb.viagenie.ca",
+            credential: "Rodtal59",
+            username: "rodolphe.tal@epitech.eu",
+          },
+        ],
+      },
+    });
+    peer.on("open", function (id) {
+      if (peer.id === null) {
+        peer.id = "pooky";
+      }
+    });
+    peer.on("close", function () {
+      conn = null;
+      console.log("CLOSY");
+    });
+    peer.on("error", function (err) {
+      console.log("HAIRY");
+      console.log(err);
     });
   }
 
+  function join() {
+    if (conn) {
+      conn.close();
+    }
+    conn = peer.connect(roomId, {
+      reliable: true,
+    });
+    conn.on("open", function () {
+      console.log("connected to" + conn.peer);
+    });
+    conn.on("data", function (data) {
+      console.log(data);
+    });
+    conn.on("close", function () {
+      console.log("close");
+    });
+  }
+
+  function send() {
+    if (conn && conn.open) {
+      console.log("pop");
+      conn.send("coucou");
+    }
+  }
+  initialize();
   return (
     <div>
-      <h2>Name of the sender: {id}</h2>
-      <form>
-        Sender Id
-        <input onChange={setSender}></input>
-      </form>
-      <h2>Name of the sender: {rcev}</h2>
-      <form>
-        Reciever Id
-        <input onChange={setReciever}></input>
-      </form>
-      <button onClick={PeerMaker}>PeerMaker</button>
-      <button onClick={connecty}>Connect</button>
-      <button onClick={sendy}>Send</button>
+      <button onClick={join}>join</button>
+      <button onClick={send}>Send</button>
     </div>
   );
 }

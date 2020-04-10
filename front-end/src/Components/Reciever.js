@@ -33,14 +33,12 @@ function Receiver() {
   };
 
   function coo() {
-    setPeer(
-      peer.on("connection", (conn) => {
-        conn.on("data", (data) => {
-          console.log("hi");
-          console.log(data);
-        });
-      })
-    );
+    peer.on("connection", (conn) => {
+      conn.on("data", (data) => {
+        console.log("hi");
+        console.log(data);
+      });
+    });
   }
 
   return (
