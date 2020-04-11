@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Form, Container, Button, Col } from "react-bootstrap";
 import Randomstring from "randomstring";
 import Peer from "peerjs";
+import "../Views/Views.css";
 
 function Sender() {
   var peer = null;
   var conn = null;
-  var roomId = "room";
+  const [roomId, setRoom] = useState("ROOM1");
+  const [Id, setId] = useState("Id");
 
   function initialize() {
-    peer = new Peer(null, {
+    peer = new Peer(Id, {
       host: "localhost",
       port: 4000,
       path: "/",
@@ -26,28 +29,28 @@ function Sender() {
     });
     peer.on("open", function (id) {
       if (peer.id === null) {
-        peer.id = "pooky";
+        peer.id = roomId;
       }
     });
     peer.on("close", function () {
       conn = null;
-      console.log("CLOSY");
     });
     peer.on("error", function (err) {
-      console.log("HAIRY");
       console.log(err);
     });
   }
 
   function join() {
+    console.log("enter join");
     if (conn) {
+      console.log("1:connected to " + conn.peer);
       conn.close();
     }
     conn = peer.connect(roomId, {
       reliable: true,
     });
     conn.on("open", function () {
-      console.log("connected to" + conn.peer);
+      console.log("2:connected to" + conn.peer);
     });
     conn.on("data", function (data) {
       console.log(data);
@@ -58,17 +61,28 @@ function Sender() {
   }
 
   function send() {
+    console.log("before send");
     if (conn && conn.open) {
-      console.log("pop");
-      conn.send("coucou");
+      console.log("sending message");
+      conn.send("hi");
     }
   }
-  initialize();
+
+  function handleClick(order, data) {
+    switch (order) {
+      case "room":
+        setRoom(data);
+      case "id":
+        setId(data);
+    }
+  }
+
   return (
-    <div>
-      <button onClick={join}>join</button>
-      <button onClick={send}>Send</button>
-    </div>
+    <Container>
+      <Button onClick={initialize}>Initiallize the client</Button>
+      <Button onClick={join}>Join server</Button>
+      <Button onClick={send}>Send hi!</Button>
+    </Container>
   );
 }
 
