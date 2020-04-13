@@ -3,15 +3,15 @@ import randomstring from "randomstring";
 import Peer from "peerjs";
 import "../Views/Views.css";
 
+var peer = null;
+var conn = null;
 function Receiver() {
-  var peer = null;
-  var conn = null;
   const [cmd, setCmd] = useState("");
-  const [room, setRoom] = useState("ROOM1");
+  const [room, setRoom] = useState(randomstring.generate(5));
 
   function initialize() {
     peer = new Peer(room, {
-      host: "localhost",
+      host: "192.168.1.12",
       port: 4000,
       path: "/",
       debug: 3,
