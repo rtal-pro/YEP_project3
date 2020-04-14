@@ -9,7 +9,7 @@ var conn = null;
 
 function Sender() {
   const [roomId, setRoom] = useState("No Room selected");
-  const [Id, setId] = useState(Randomstring.generate(2));
+  const [Id, setId] = useState(Randomstring.generate(5));
   const [message, setMessage] = useState("No message");
   const [conected, setConnected] = useState(false);
 
@@ -19,7 +19,7 @@ function Sender() {
       host: "192.168.1.12",
       port: 4000,
       path: "/",
-      debug: 2,
+      debug: 3,
       config: {
         iceServers: [
           { url: "stun:stun1.l.google.com:19302" },
@@ -32,27 +32,20 @@ function Sender() {
       },
     });
     peer.on("open", function (id) {
-      if (peer.id === null) {
-        console.log("on open :" + peer);
-        peer.id = roomId;
-      }
+      console.log("on open :" + peer.id);
     });
     peer.on("close", function () {
-      console.log("on close :" + peer);
+      console.log("on close :" + peer.id);
       conn = null;
     });
     peer.on("error", function (err) {
       console.log("peer.on error :" + err);
     });
+    join();
   }
 
   function join() {
-    initialize();
     console.log("In fonction: Join");
-    if (conn) {
-      console.log("if conn" + conn.peer);
-      conn.close();
-    }
     conn = peer.connect(roomId, {
       reliable: true,
     });
@@ -66,9 +59,10 @@ function Sender() {
     });
     conn.on("close", function () {
       console.log("on conn.close");
-      setConnected(false);
     });
-    console.log("end" + conn);
+    conn.on("error", function (err) {
+      console.log("on conn.err:");
+    });
   }
 
   function send(data) {
@@ -102,25 +96,31 @@ function Sender() {
         <h2 className="Typo">Your Room Id: {roomId}</h2>
       </Row>
       <Row>
-        <Button className="LittleButton" onClick={join}>
+        <Button className="LittleButton" onClick={initialize}>
           Join server
         </Button>
       </Row>
       <Button
         className="LittleButton"
-        onClick={() => {
+        onMouseDown={() => {
           send("up");
+        }}
+        onMouseUp={() => {
+          send("def");
         }}
       >
         up
       </Button>
       <Button
         className="LittleButton"
-        onClick={() => {
+        onMouseDown={() => {
           send("down");
         }}
+        onMouseUp={() => {
+          send("def");
+        }}
       >
-        up
+        down
       </Button>
     </Card>
   );

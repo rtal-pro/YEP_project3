@@ -60,13 +60,14 @@ function Receiver() {
     // named "SpawnController" to the public method
     // "SpawnEnemies" with a value of "10".
     let player = "Player" + i;
+    console.log("event:" + data);
     unityContent.send(player, "getCmd", data);
   }
 
   function listenConn() {
     for (let i = 0; i < conn.length; i++) {
       conn[i].on("data", function (data) {
-        console.log(data);
+        console.log("tada:" + data);
         handleEvent(data, i + 1);
       });
     }
