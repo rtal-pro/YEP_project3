@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
+import Unity, { UnityContent } from "react-unity-webgl";
+import { Container } from "react-bootstrap";
 import randomstring from "randomstring";
 import Peer from "peerjs";
 import "../Views/Views.css";
 
 var peer = null;
-var conn = null;
+var conn = [];
 function Receiver() {
-  const [cmd, setCmd] = useState("");
-  const [room, setRoom] = useState(randomstring.generate(5));
+  const room = randomstring.generate(5);
+  const unityContent = new UnityContent(
+    "airPong/Build/airPong.json",
+    "airPong/Build/UnityLoader.js"
+  );
 
   function initialize() {
     peer = new Peer(room, {
@@ -32,14 +37,11 @@ function Receiver() {
       }
     });
     peer.on("connection", function (c) {
-      if (conn) {
-        c.on("open", function () {
-          c.send("welcome but already in use!!!");
-          c.close();
-        });
-      }
-      conn = c;
-      startRecv();
+      conn.push(c);
+      conn[conn.length - 1].on("open", function () {
+        conn[conn.length - 1].send("PLAYER" + conn.length);
+      });
+      listenConn();
     });
     peer.on("disconnected", function () {
       console.log("connection lost with");
@@ -53,11 +55,21 @@ function Receiver() {
     });
   }
 
-  function startRecv() {
-    conn.on("data", function (data) {
-      console.log(data);
-      setCmd(cmd + data);
-    });
+  function handleEvent(data, i) {
+    // this function sends a message to a game object
+    // named "SpawnController" to the public method
+    // "SpawnEnemies" with a value of "10".
+    let player = "Player" + i;
+    unityContent.send(player, "getCmd", data);
+  }
+
+  function listenConn() {
+    for (let i = 0; i < conn.length; i++) {
+      conn[i].on("data", function (data) {
+        console.log(data);
+        handleEvent(data, i + 1);
+      });
+    }
   }
 
   useEffect(() => {
@@ -67,7 +79,9 @@ function Receiver() {
   return (
     <div>
       <h1 className="Typo">The room id is : {room}</h1>
-      <h1 className="Typo"> {cmd}</h1>
+      <Container className="GameContainer">
+        <Unity unityContent={unityContent} />
+      </Container>
     </div>
   );
 }
