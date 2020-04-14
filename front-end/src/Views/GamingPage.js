@@ -1,16 +1,37 @@
 import React from "react";
+import { Container, Button } from "react-bootstrap";
 import Unity, { UnityContent } from "react-unity-webgl";
+import "../Views/Views.css";
 
 function GamingPage() {
   const unityContent = new UnityContent(
-    "MyGame/Build/MyGame.json",
-    "MyGame/Build/UnityLoader.js"
+    "airPong/Build/airPong.json",
+    "airPong/Build/UnityLoader.js"
   );
 
+  function handleUp() {
+    // this function sends a message to a game object
+    // named "SpawnController" to the public method
+    // "SpawnEnemies" with a value of "10".
+    unityContent.send("Player1", "getCmd", "up");
+  }
+
+  function handleDown() {
+    // this function sends a message to a game object
+    // named "SpawnController" to the public method
+    // "SpawnEnemies" with a value of "10".
+    unityContent.send("Player1", "getCmd", "down");
+  }
   return (
-    <div className="App">
+    <Container className="GameContainer">
       <Unity unityContent={unityContent} />
-    </div>
+      <Button onClick={handleUp} className="LittleButton">
+        up
+      </Button>
+      <Button onClick={handleDown} className="LittleButton">
+        Down
+      </Button>
+    </Container>
   );
 }
 

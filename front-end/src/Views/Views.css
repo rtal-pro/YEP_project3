@@ -48,3 +48,8 @@
 .Typo {
   color: purple;
 }
+
+.GameContainer {
+  height: 500px;
+  width: 800px;
+}

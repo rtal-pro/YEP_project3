@@ -8,10 +8,10 @@ var peer = null;
 var conn = null;
 
 function Sender() {
-  console.log("Begin" + conn);
   const [roomId, setRoom] = useState("No Room selected");
-  const [Id, setId] = useState("No Id selected");
+  const [Id, setId] = useState(Randomstring.generate(2));
   const [message, setMessage] = useState("No message");
+  const [conected, setConnected] = useState(false);
 
   function initialize() {
     console.log("In fonction: Initialize");
@@ -47,6 +47,7 @@ function Sender() {
   }
 
   function join() {
+    initialize();
     console.log("In fonction: Join");
     if (conn) {
       console.log("if conn" + conn.peer);
@@ -57,6 +58,7 @@ function Sender() {
     });
     conn.on("open", function () {
       console.log("on conn.on:open:" + conn.peer);
+      setConnected(true);
     });
     conn.on("data", function (data) {
       console.log("on conn.on:DATA:" + conn.peer);
@@ -64,34 +66,27 @@ function Sender() {
     });
     conn.on("close", function () {
       console.log("on conn.close");
+      setConnected(false);
     });
     console.log("end" + conn);
   }
 
-  function send() {
+  function send(data) {
     console.log("In fonction: Send");
     if (conn && conn.open) {
       console.log("sending message");
-      conn.send(message);
+      conn.send(data);
     }
+  }
+  function connbut() {
+    if (conected === true) return <Button className="Typo">connected</Button>;
+    if (conected === false)
+      return <Button className="Typo">Disconnected</Button>;
   }
   console.log("end" + conn);
   return (
     <Card>
-      <Row>
-        <Form>
-          <Form.Group>
-            <Form.Label className="Typo">Select your ID:</Form.Label>
-            <Form.Control
-              onChange={(e) => {
-                setId(e.target.value);
-              }}
-              placeholder="Enter  your Id"
-            ></Form.Control>
-          </Form.Group>
-        </Form>
-        <h2 className="Typo">Your Id: {Id}</h2>
-      </Row>
+      <div>{connbut()}</div>
       <Row>
         <Form>
           <Form.Group>
@@ -107,32 +102,25 @@ function Sender() {
         <h2 className="Typo">Your Room Id: {roomId}</h2>
       </Row>
       <Row>
-        <Form>
-          <Form.Group>
-            <Form.Label className="Typo">Type the message to send:</Form.Label>
-            <Form.Control
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-              placeholder="Enter  your Id"
-            ></Form.Control>
-          </Form.Group>
-        </Form>
-        <h2 className="Typo">Your Mess: {message}</h2>
-      </Row>
-      <Row>
-        <Button className="LittleButton" onClick={initialize}>
-          Initiallize the client
-        </Button>
-      </Row>
-      <Row>
         <Button className="LittleButton" onClick={join}>
           Join server
         </Button>
       </Row>
-
-      <Button className="LittleButton" onClick={send}>
-        Send hi!
+      <Button
+        className="LittleButton"
+        onClick={() => {
+          send("up");
+        }}
+      >
+        up
+      </Button>
+      <Button
+        className="LittleButton"
+        onClick={() => {
+          send("down");
+        }}
+      >
+        up
       </Button>
     </Card>
   );
