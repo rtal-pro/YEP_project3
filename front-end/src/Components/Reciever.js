@@ -19,7 +19,7 @@ function Receiver() {
       host: "192.168.1.12",
       port: 4000,
       path: "/",
-      debug: 3,
+      debug: 1,
       config: {
         iceServers: [
           { url: "stun:stun1.l.google.com:19302" },
@@ -32,9 +32,7 @@ function Receiver() {
       },
     });
     peer.on("open", function (id) {
-      if (peer.id === null) {
-        peer.id = room;
-      }
+      console.log("My name is:" + peer.id);
     });
     peer.on("connection", function (c) {
       conn.push(c);

@@ -19,7 +19,7 @@ function Sender() {
       host: "192.168.1.12",
       port: 4000,
       path: "/",
-      debug: 3,
+      debug: 1,
       config: {
         iceServers: [
           { url: "stun:stun1.l.google.com:19302" },
@@ -34,6 +34,11 @@ function Sender() {
     peer.on("open", function (id) {
       console.log("on open :" + peer.id);
     });
+    peer.on("disconnected", function () {
+      console.log("Connection lost. Please reconnect");
+      // Workaround for peer.reconnect deleting previous id
+      peer.reconnect();
+    });
     peer.on("close", function () {
       console.log("on close :" + peer.id);
       conn = null;
@@ -41,7 +46,6 @@ function Sender() {
     peer.on("error", function (err) {
       console.log("peer.on error :" + err);
     });
-    join();
   }
 
   function join() {
@@ -72,15 +76,9 @@ function Sender() {
       conn.send(data);
     }
   }
-  function connbut() {
-    if (conected === true) return <Button className="Typo">connected</Button>;
-    if (conected === false)
-      return <Button className="Typo">Disconnected</Button>;
-  }
-  console.log("end" + conn);
+
   return (
     <Card>
-      <div>{connbut()}</div>
       <Row>
         <Form>
           <Form.Group>
@@ -97,7 +95,10 @@ function Sender() {
       </Row>
       <Row>
         <Button className="LittleButton" onClick={initialize}>
-          Join server
+          Validate id room
+        </Button>
+        <Button className="LittleButton" onClick={join}>
+          Join the room
         </Button>
       </Row>
       <Button
