@@ -16,7 +16,7 @@ function Sender() {
   function initialize() {
     console.log("In fonction: Initialize");
     peer = new Peer(Id, {
-      host: "192.168.1.12",
+      host: "192.168.1.24",
       port: 4000,
       path: "/",
       debug: 1,

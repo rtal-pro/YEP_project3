@@ -5,18 +5,21 @@ import randomstring from "randomstring";
 import Peer from "peerjs";
 import "../Views/Views.css";
 
-var peer = null;
-var conn = [];
+// var peer = null;
+ var conn = [];
 function Receiver() {
-  const room = randomstring.generate(5);
-  const unityContent = new UnityContent(
+  let peer = null;
+  const [conn] = useState([]);
+  const [players, setPlayers] = useState(0);
+  const [room] = useState(randomstring.generate({length: 4, charset: 'numeric'}));
+  const [unityContent, setUnityContent] = useState(new UnityContent(
     "airPong/Build/airPong.json",
     "airPong/Build/UnityLoader.js"
-  );
+  ));
 
   function initialize() {
     peer = new Peer(room, {
-      host: "192.168.1.12",
+      host: "192.168.1.24",
       port: 4000,
       path: "/",
       debug: 1,
@@ -36,6 +39,7 @@ function Receiver() {
     });
     peer.on("connection", function (c) {
       conn.push(c);
+      setPlayers(conn.length);
       conn[conn.length - 1].on("open", function () {
         conn[conn.length - 1].send("PLAYER" + conn.length);
       });
@@ -63,6 +67,7 @@ function Receiver() {
   }
 
   function listenConn() {
+    console.log('iciiiiii ?');
     for (let i = 0; i < conn.length; i++) {
       conn[i].on("data", function (data) {
         console.log("tada:" + data);
@@ -72,15 +77,18 @@ function Receiver() {
   }
 
   useEffect(() => {
-    initialize();
+    if (players <= 0)
+      initialize();
+    console.log('ici');
   }, []);
 
   return (
     <div>
       <h1 className="Typo">The room id is : {room}</h1>
-      <Container className="GameContainer">
+      <h1 className="Typo">Number of players connected: {players}</h1>
+      {players == 2 && <Container className="GameContainer">
         <Unity unityContent={unityContent} />
-      </Container>
+      </Container>}
     </div>
   );
 }
