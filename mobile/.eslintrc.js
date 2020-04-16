@@ -1,4 +1,8 @@
 module.exports = {
-  root: true,
-  extends: '@react-native-community',
+  parser: 'babel-eslint',
+  extends: 'airbnb',
+  plugins: ['react', 'jsx-a11y', 'import', 'react-hooks'],
+  rules: {
+    'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
+  },
 };
