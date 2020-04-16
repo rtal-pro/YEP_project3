@@ -51,7 +51,7 @@ function TypingText({ text, color, size }) {
     <View style={Style.container}>
       <Text style={Style(color, size).text}>
         {animatedText}
-        <Text style={Style(color).cursor}>|</Text>
+        <Text style={Style(blinkCursorColor).cursor}>|</Text>
       </Text>
     </View>
   );
