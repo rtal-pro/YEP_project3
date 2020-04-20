@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
 import "./Views.css";
 
@@ -10,24 +11,26 @@ function LandingPage() {
     if (route === "room") history.push("/room");
   }
   return (
-    <Container>
-      <Button
-        className="Button"
-        onClick={() => {
-          handleRoute("room");
-        }}
-      >
-        Create a room
-      </Button>
-      <Button
-        className="Button"
-        onClick={() => {
-          handleRoute("sender");
-        }}
-      >
-        Connect as client
-      </Button>
-    </Container>
+    <div>
+      <Container>
+        <Button
+          variant="outline-info"
+          onClick={() => {
+            handleRoute("room");
+          }}
+        >
+          Create a room
+        </Button>
+        <Button
+          variant="outline-info"
+          onClick={() => {
+            handleRoute("sender");
+          }}
+        >
+          Connect as client
+        </Button>
+      </Container>
+    </div>
   );
 }
 

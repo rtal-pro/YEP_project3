@@ -1,11 +1,12 @@
 .App {
   text-align: center;
-  background-color: black;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  background: linear-gradient(#343a40, #9198e5);
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: fixed;
 }
 
 .App-logo {
