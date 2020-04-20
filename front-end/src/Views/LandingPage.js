@@ -1,36 +1,47 @@
 import React from "react";
-import { Container, Button } from "react-bootstrap";
+import { Col, Button, Card, Container, Row, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Logo from "../Images/logo.jpg";
 import { useHistory } from "react-router-dom";
+import { Player } from "video-react";
 import "./Views.css";
 
-function LandingPage() {
-  const history = useHistory();
-  function handleRoute(route) {
-    if (route === "sender") history.push("/sender");
-    if (route === "room") history.push("/room");
+function LandingPage(props) {
+  function Connection() {
+    if (props.room === "NO ID") {
+      return <Button onClick={props.initialize}>Let's Play!</Button>;
+    } else {
+      return <Button onClick={props.initialize}>Room Connected</Button>;
+    }
   }
   return (
-    <div>
+    <>
       <Container>
-        <Button
-          variant="outline-info"
-          onClick={() => {
-            handleRoute("room");
-          }}
-        >
-          Create a room
-        </Button>
-        <Button
-          variant="outline-info"
-          onClick={() => {
-            handleRoute("sender");
-          }}
-        >
-          Connect as client
-        </Button>
+        <Row>
+          <Col>
+            <Card
+              style={{
+                width: "18rem",
+                marginTop: "100px",
+                borderRadius: "20px",
+              }}
+            >
+              <Card.Img
+                style={{ borderRadius: "20px" }}
+                variant="top"
+                src={Logo}
+              />
+              <Card.Body>
+                <Card.Title>Card Title</Card.Title>
+                <Card.Text></Card.Text>
+                <Connection props={props} />
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col></Col>
+        </Row>
       </Container>
-    </div>
+    </>
   );
 }
 

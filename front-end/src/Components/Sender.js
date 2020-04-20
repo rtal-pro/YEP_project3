@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Row, Form, Card, Container, Button, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Form, Card, Container, Button } from "react-bootstrap";
 import Randomstring from "randomstring";
 import Peer from "peerjs";
 import "../Views/Views.css";
@@ -9,14 +9,15 @@ var conn = null;
 
 function Sender() {
   const [roomId, setRoom] = useState("No Room selected");
-  const [Id, setId] = useState(Randomstring.generate(5));
+  const [Id, setId] = useState(
+    Randomstring.generate({ length: 4, charset: "numeric" })
+  );
   const [message, setMessage] = useState("No message");
   const [conected, setConnected] = useState(false);
 
   function initialize() {
-    console.log("In fonction: Initialize");
     peer = new Peer(Id, {
-      host: "192.168.1.24",
+      host: "127.0.0.1",
       port: 4000,
       path: "/",
       debug: 1,

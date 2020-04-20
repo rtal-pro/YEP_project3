@@ -24,25 +24,16 @@
 }
 
 .LittleButton {
-  margin: 10px;
-  background-color: black;
-  color: purple;
-  border-color: blueviolet;
-  height: 80px;
-  width: 120px;
-  border-radius: 10px;
+  background-color: inherit;
+  border: 0ch;
   transition: 0.8s;
 }
 
 .LittleButton:hover {
-  margin: 10px;
-  background-color: gray;
-  transition: 0.8s;
-  color: purple;
-  border-color: purple;
-  height: 80px;
-  width: 120px;
-  border-radius: 10px;
+  background-color: inherit;
+  border: 0ch;
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 
 .Typo {
