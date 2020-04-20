@@ -45,7 +45,7 @@ function TypingText({ text, color, size }) {
     return () => {
       clearInterval(interval);
     };
-  });
+  }, [blinkCursorColor]);
 
   return (
     <View style={Style.container}>
