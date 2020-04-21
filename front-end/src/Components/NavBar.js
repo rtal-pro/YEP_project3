@@ -1,47 +1,66 @@
 import React from "react";
-import { Navbar, Image, Col } from "react-bootstrap";
-import Logo from "../Images/logo192.png";
-import Refresh from "../Images/refresh.png";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+
 import "../Views/Views.css";
+import { FaBattleNet } from "react-icons/fa";
+import { FiSettings } from "react-icons/fi";
+import { FaUserAstronaut } from "react-icons/fa";
+import { FiRefreshCw } from "react-icons/fi";
 
 function NavBar(props) {
   return (
-    <div>
-      <Navbar variant="dark" sticky="top">
-        <Navbar.Brand href="/">
-          <img
-            alt=""
-            src={Logo}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          />{" "}
-          Air Console
-        </Navbar.Brand>
-
-        <Navbar.Collapse className="justify-content-right">
-          <Col></Col>
-          <Col md={3}>
-            <button className="LittleButton" onClick={props.initialize}>
-              <Image
-                src={Refresh}
-                roundedCircle
-                className="d-inline-block align-top"
-                width="25"
-                height="25"
-              />
-            </button>
-            <Navbar.Text>
-              Your Room Id: <a href="/">{props.room}</a>
-            </Navbar.Text>
-          </Col>
-          <Col md={2}>
-            <Navbar.Text>
-              Number of Players: <a href="/">{props.player}</a>
-            </Navbar.Text>
-          </Col>
-        </Navbar.Collapse>
-      </Navbar>
+    <div className="Header">
+      <div className="LeftHeader">
+        <FaBattleNet className="MainIcon" />
+        <div className="MainTypo">AirBattle</div>
+      </div>
+      <div className="RightHeader">
+        <OverlayTrigger
+          key="bottom"
+          placement="bottom"
+          overlay={
+            <Tooltip>
+              <strong>Settings on works</strong>.
+            </Tooltip>
+          }
+        >
+          <button className="RightIcon">
+            <FiSettings />
+          </button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          key="bottom"
+          placement="bottom"
+          overlay={
+            <Tooltip>
+              <strong>Number of player connected: {props.player}</strong>.
+            </Tooltip>
+          }
+        >
+          <button className="RightIcon">
+            <FaUserAstronaut />
+            {props.player > 0 && <div className="Notif">{props.player}</div>}
+          </button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          key="bottom"
+          placement="bottom"
+          overlay={
+            <Tooltip>
+              <strong>Click here to refresh this ID room.</strong>
+            </Tooltip>
+          }
+        >
+          <button className="RightIcon">
+            <FiRefreshCw onClick={props.initialize} />
+          </button>
+        </OverlayTrigger>
+        <div className="RoomId">
+          <div className="NumberId">
+            <div className="SecondTypo">iD {props.room}</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

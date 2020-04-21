@@ -12,14 +12,23 @@ import "../node_modules/video-react/dist/video-react.css";
 import "./App.css";
 
 function App() {
-  const [myPeer, setPeer] = useState(null);
   const [myConn, setConn] = useState([]);
-  const [room, setRoom] = useState("NO ID");
+  const [room, setRoom] = useState("####");
+  const [ids, setIds] = useState([]);
 
-  function initialize() {
+  const closeConnection = () => {
+    for (let i = 0; i < myConn.length; i++) {
+      myConn[i].close();
+      setConn([]);
+    }
+  };
+
+  const initialize = () => {
     let peer;
     var roomTMP = randomstring.generate({ length: 4, charset: "numeric" });
     setRoom(roomTMP);
+    closeConnection();
+    if (peer) peer = null;
     peer = new Peer(roomTMP, {
       host: "localhost",
       port: 4000,
@@ -37,8 +46,6 @@ function App() {
       },
     });
     peer.on("open", function (id) {
-      setPeer(peer);
-      setConn(() => []);
       console.log("My name is:" + peer.id);
     });
     peer.on("connection", function (c) {
@@ -49,33 +56,33 @@ function App() {
     });
     peer.on("disconnected", function () {
       console.log("connection lost with");
-      setPeer(null);
       peer.reconnect();
     });
     peer.on("close", function () {
-      setPeer(null);
       console.log("connection destroyed");
     });
     peer.on("error", function (err) {
-      setPeer(null);
       console.log(err);
     });
-    setPeer(peer);
-  }
+  };
 
-  function handleEvent(data, i) {
+  const handleEvent = (data, i) => {
     console.log("event:" + data);
-  }
+    switch (data.type) {
+      case "id":
+        setIds((ids) => [...ids, data.value]);
+        break;
+    }
+  };
 
-  function listenConn(myConn) {
+  const listenConn = (myConn) => {
     for (let i = 0; i < myConn.length; i++) {
       console.log("listen" + myConn.length);
       myConn[i].on("data", function (data) {
-        myConn[i].send("PLAYER" + myConn.length);
         handleEvent(data, i + 1);
       });
     }
-  }
+  };
 
   useEffect(() => {
     listenConn(myConn);
@@ -84,6 +91,7 @@ function App() {
   return (
     <div className="App">
       <Navbar
+        ids={ids}
         room={room}
         player={myConn.length}
         initialize={initialize}
@@ -94,11 +102,7 @@ function App() {
           <Route
             exact
             render={(props) => (
-              <LandingPage
-                initialize={initialize}
-                room={room}
-                player={myConn.length}
-              />
+              <LandingPage initialize={initialize} room={room} ids={ids} />
             )}
             path="/"
           />

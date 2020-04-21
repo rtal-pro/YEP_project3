@@ -9,10 +9,10 @@ var conn = null;
 
 function Sender() {
   const [roomId, setRoom] = useState("No Room selected");
+  const id = Randomstring.generate({ length: 4, charset: "numeric" });
 
   function initialize() {
-    let Id = Randomstring.generate({ length: 4, charset: "numeric" });
-    peer = new Peer(Id, {
+    peer = new Peer(id, {
       host: "127.0.0.1",
       port: 4000,
       path: "/",
@@ -29,7 +29,7 @@ function Sender() {
       },
     });
     peer.on("open", function (id) {
-      console.log("on open :" + peer.id);
+      console.log("My name is :" + peer.id);
     });
     peer.on("disconnected", function () {
       console.log("Connection lost. Please reconnect");
@@ -52,9 +52,9 @@ function Sender() {
     });
     conn.on("open", function () {
       console.log("on conn.on:open:" + conn.peer);
+      conn.send({ type: "id", value: id });
     });
     conn.on("data", function (data) {
-      console.log("on conn.on:DATA:" + conn.peer);
       console.log(data);
     });
     conn.on("close", function () {
@@ -66,9 +66,9 @@ function Sender() {
   }
 
   function send(data) {
-    console.log("In fonction: Send");
+    //console.log("In fonction: Send");
     if (conn && conn.open) {
-      console.log("sending message");
+      console.log(data);
       conn.send(data);
     }
   }

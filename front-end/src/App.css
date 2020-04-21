@@ -1,6 +1,11 @@
 .App {
   text-align: center;
-  background: linear-gradient(#343a40, #9198e5);
+  background: -webkit-linear-gradient(
+    120deg,
+    rgba(85, 0, 74, 0.993),
+    rgb(34, 0, 25),
+    rgb(0, 2, 12)
+  );
   height: 100%;
   width: 100%;
   left: 0;

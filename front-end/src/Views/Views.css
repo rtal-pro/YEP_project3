@@ -1,41 +1,5 @@
-.Button {
-  margin: 200px;
-  background-color: black;
-  color: purple;
-  border-color: blueviolet;
-  height: 200px;
-  width: 500px;
-  font-size: 50px;
-  border-radius: 20px;
-  transition: 0.8s;
-}
-
-.Button:hover {
-  margin: 200px;
-  background-color: gray;
-  transition: 0.8s;
-  color: purple;
-  border-color: purple;
-  mask-border-outset: 2px;
-  height: 200px;
-  width: 500px;
-  font-size: 50px;
-  border-radius: 20px;
-}
-
-.LittleButton {
-  background-color: inherit;
-  border: 0ch;
-  transition: 0.8s;
-}
-
-.LittleButton:hover {
-  background-color: inherit;
-  border: 0ch;
-  -webkit-transform: rotate(360deg);
-  transform: rotate(360deg);
-}
-
+@import url("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Vampiro+One&display=swap");
 .Typo {
   color: purple;
 }
@@ -43,4 +7,168 @@
 .GameContainer {
   height: 500px;
   width: 800px;
+}
+
+.LittleFont {
+  font-size: 20px;
+  background: -webkit-linear-gradient(
+    20deg,
+    rgb(214, 36, 190),
+    rgb(29, 61, 245)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.Header {
+  background-color: rgb(0, 0, 0);
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.LeftHeader {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+.RightHeader {
+  width: 50%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color: red;
+  }
+  25% {
+    color: yellow;
+  }
+  50% {
+    color: blue;
+  }
+  75% {
+    color: green;
+  }
+  100% {
+    color: red;
+  }
+}
+
+@keyframes colorchange {
+  0% {
+    color: rgb(38, 0, 255);
+  }
+  50% {
+    color: rgb(253, 0, 97);
+  }
+  100% {
+    color: rgb(38, 0, 255);
+  }
+}
+
+.MainIcon {
+  font-size: 60px;
+  margin-top: 5px;
+  margin-left: 5px;
+  color: rgb(203, 0, 253);
+  -webkit-animation: colorchange 5s infinite;
+  animation: colorchange 5s infinite;
+}
+
+.MainTypo {
+  font-family: "Pacifico", cursive;
+  font-size: 35px;
+  font-weight: 600px;
+  margin-left: 17px;
+  margin-top: 7px;
+  color: rgb(255, 255, 255);
+}
+
+.RightIcon {
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border: 0ch;
+  margin-bottom: 4px;
+  border-radius: 30px;
+  font-size: 40px;
+  margin-right: 20px;
+  transition: 0.5s;
+  display: flex;
+  justify-content: center;
+}
+
+.RightIcon:hover {
+  color: rgb(32, 207, 9);
+  background-color: transparent;
+  border: 0ch;
+  margin-bottom: 4px;
+  border-radius: 30px;
+  font-size: 40px;
+  margin-right: 20px;
+}
+
+.RoomId {
+  display: flex;
+  align-items: center;
+  background: -webkit-linear-gradient(40deg, rgb(0, 81, 255), rgb(247, 0, 214));
+  margin: 6px;
+  margin-right: 20px;
+  width: 12em;
+  border-radius: 30px;
+}
+
+.NumberId {
+  background: rgb(26, 26, 26);
+  color: rgb(255, 255, 255);
+  margin: 3px;
+  width: 100%;
+  height: 45px;
+  border-radius: 31px;
+}
+
+.SecondTypo {
+  font-family: "Pacifico", cursive;
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+  width: 100%;
+}
+
+@keyframes notif {
+  0% {
+    background-color: rgb(255, 8, 0);
+    font-size: 35px;
+    height: 40px;
+    width: 40px;
+  }
+  50% {
+    background-color: rgb(255, 166, 0);
+    font-size: 25px;
+    height: 30px;
+    width: 30px;
+  }
+  75% {
+    background-color: rgb(255, 238, 0);
+    font-size: 15px;
+    height: 20px;
+    width: 20px;
+  }
+  100% {
+    background-color: rgb(217, 255, 0);
+    height: 15px;
+    width: 15px;
+  }
+}
+.Notif {
+  font-size: 10px;
+  font-weight: 900;
+  background-color: rgb(30, 255, 0);
+  height: 15px;
+  width: 15px;
+  border-radius: 10px;
+  -webkit-animation: notif 5s;
+  animation: notif 2s;
 }
