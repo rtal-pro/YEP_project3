@@ -14,7 +14,6 @@ import "./App.css";
 function App() {
   const [myPeer, setPeer] = useState(null);
   const [myConn, setConn] = useState([]);
-  const [player, setPlayer] = useState(0);
   const [room, setRoom] = useState("NO ID");
 
   function initialize() {
@@ -61,17 +60,17 @@ function App() {
       setPeer(null);
       console.log(err);
     });
+    setPeer(peer);
   }
 
   function handleEvent(data, i) {
     console.log("event:" + data);
   }
 
-  function listenConn() {
+  function listenConn(myConn) {
     for (let i = 0; i < myConn.length; i++) {
       console.log("listen" + myConn.length);
       myConn[i].on("data", function (data) {
-        console.log("tada:" + data);
         myConn[i].send("PLAYER" + myConn.length);
         handleEvent(data, i + 1);
       });
@@ -79,8 +78,8 @@ function App() {
   }
 
   useEffect(() => {
-    listenConn();
-  }, [myConn, myPeer]);
+    listenConn(myConn);
+  }, [myConn]);
 
   return (
     <div className="App">

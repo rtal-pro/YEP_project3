@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Image, Button, Col } from "react-bootstrap";
+import { Navbar, Image, Col } from "react-bootstrap";
 import Logo from "../Images/logo192.png";
 import Refresh from "../Images/refresh.png";
 import "../Views/Views.css";
@@ -32,12 +32,12 @@ function NavBar(props) {
               />
             </button>
             <Navbar.Text>
-              Your Room Id: <a>{props.room}</a>
+              Your Room Id: <a href="/">{props.room}</a>
             </Navbar.Text>
           </Col>
           <Col md={2}>
             <Navbar.Text>
-              Number of Players: <a>{props.player}</a>
+              Number of Players: <a href="/">{props.player}</a>
             </Navbar.Text>
           </Col>
         </Navbar.Collapse>

@@ -1,9 +1,8 @@
 import React from "react";
-import { Col, Button, Card, Container, Row, Modal } from "react-bootstrap";
+import { Col, Button, Card, Container, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Logo from "../Images/logo.jpg";
-import { useHistory } from "react-router-dom";
-import { Player } from "video-react";
+import Draggable from "react-draggable";
 import "./Views.css";
 
 function LandingPage(props) {
@@ -38,7 +37,21 @@ function LandingPage(props) {
               </Card.Body>
             </Card>
           </Col>
-          <Col></Col>
+          <Col>
+            <Draggable
+              axis="xy"
+              handle=".handle"
+              defaultPosition={{ x: 0, y: 0 }}
+              position={null}
+              grid={[25, 25]}
+              scale={1}
+            >
+              <div>
+                <div className="handle">Drag from here</div>
+                <div>This readme is really dragging on...</div>
+              </div>
+            </Draggable>
+          </Col>
         </Row>
       </Container>
     </>
