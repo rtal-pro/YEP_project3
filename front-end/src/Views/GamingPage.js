@@ -12,7 +12,7 @@ function GamingPage(props) {
   );
   console.log("show" + props.data);
 
-  function controlEvent(unity, data) {
+  function controlEvent(unity) {
     // this function sends a message to a game object
     // named "SpawnController" to the public method
     // "SpawnEnemies" with a value of "10".
@@ -22,7 +22,7 @@ function GamingPage(props) {
   }
 
   useEffect(() => {
-    controlEvent(unity, props.data);
+    controlEvent(unity);
   }, [props.data, unity]);
   return (
     <div className="GamePage">

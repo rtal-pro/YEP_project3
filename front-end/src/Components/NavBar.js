@@ -18,7 +18,7 @@ function NavBar(props) {
         <div className="MainTypo">AirBattle</div>
       </div>
       <div className="RightHeader">
-        {/* <OverlayTrigger
+        <OverlayTrigger
           key={key}
           placement={key}
           overlay={
@@ -44,7 +44,7 @@ function NavBar(props) {
             <FaUserAstronaut />
             {props.player > 0 && <div className="Notif">{props.player}</div>}
           </button>
-        </OverlayTrigger>*/}
+        </OverlayTrigger>
         <OverlayTrigger
           key={key2}
           placement={key2}
