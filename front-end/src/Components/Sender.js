@@ -69,7 +69,7 @@ function Sender() {
     //console.log("In fonction: Send");
     if (conn && conn.open) {
       console.log(data);
-      conn.send(data);
+      conn.send({ type: "move", value: data });
     }
   }
 

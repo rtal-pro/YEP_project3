@@ -15,6 +15,7 @@ function App() {
   const [myConn, setConn] = useState([]);
   const [room, setRoom] = useState("####");
   const [ids, setIds] = useState([]);
+  const [data, setData] = useState();
 
   const closeConnection = () => {
     for (let i = 0; i < myConn.length; i++) {
@@ -66,11 +67,17 @@ function App() {
     });
   };
 
-  const handleEvent = (data, i) => {
-    console.log("event:" + data);
-    switch (data.type) {
+  const handleEvent = (info, i) => {
+    console.log("event:" + info);
+    switch (info.type) {
       case "id":
-        setIds((ids) => [...ids, data.value]);
+        setIds((ids) => [...ids, info.value]);
+        break;
+      case "move":
+        console.log("in move" + info.value);
+        setData(info.value);
+        break;
+      default:
         break;
     }
   };
@@ -98,7 +105,11 @@ function App() {
       ></Navbar>
       <BrowserRouter>
         <Switch>
-          <Route exact component={GamingPage} path="/game" />
+          <Route
+            exact
+            render={(props) => <GamingPage room={room} ids={ids} data={data} />}
+            path="/game"
+          />
           <Route
             exact
             render={(props) => (

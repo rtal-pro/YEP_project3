@@ -1,11 +1,17 @@
 import React from "react";
 import { Row } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Views.css";
 import { GiFlame } from "react-icons/gi";
 import { GiBrutalHelm } from "react-icons/gi";
+
 function LandingPage(props) {
-  // const playerShow
+  const history = useHistory();
+
+  function handleRoute() {
+    history.push("/game");
+  }
 
   return (
     <div className="LandingPage">
@@ -62,7 +68,7 @@ function LandingPage(props) {
           <div className="inTextBox">
             <h4>You can now select a game in your game collection!</h4>
             <div className="GameCollectionButton">
-              <button className="inGameCollectionButton">
+              <button onClick={handleRoute} className="inGameCollectionButton">
                 Let's choose a game!
               </button>
             </div>
