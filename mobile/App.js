@@ -10,6 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Welcome from './sources/Views/Welcome/Welcome';
 import Code from './sources/Views/Code/Code';
+import Controller from './sources/Views/Controller/Controller';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ function App() {
       <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
         <Stack.Screen name="Code" component={Code} options={{ headerShown: false }} />
+        <Stack.Screen name="Controller" component={Controller} />
       </Stack.Navigator>
     </NavigationContainer>
   );

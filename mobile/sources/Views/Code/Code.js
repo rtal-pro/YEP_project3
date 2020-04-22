@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { View, Text, Image } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import PropTypes from 'prop-types';
+import Orientation from 'react-native-orientation';
 
 import NumKeyBoard from '../../Components/NumKeyBoard/NumKeyBoard';
 
@@ -13,6 +15,19 @@ import Style from './Style';
 function Code({ navigation }) {
   const [id, setId] = React.useState('Enter your ID');
 
+  /* React.useEffect(() => {
+    console.log('TOTOTOTOTO');
+    Orientation.lockToPortrait();
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }); */
+
+  useFocusEffect(
+    React.useCallback(() => {
+      Orientation.lockToPortrait();
+    }, []),
+  );
   return (
     <View style={Style.container}>
       <View style={Style.up}>
