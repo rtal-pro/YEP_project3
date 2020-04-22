@@ -202,7 +202,7 @@
 
   100% {
     opacity: 1;
-    left: 0;
+    left: -15px;
   }
 }
 
@@ -224,6 +224,7 @@
   animation: test;
   transition-timing-function: ease;
   animation-duration: 2s;
+  left: -15px;
 }
 
 .inTextBox {
@@ -303,4 +304,5 @@
   padding: 30px;
   border-radius: 20px;
   position: relative;
+  margin: 2px;
 }

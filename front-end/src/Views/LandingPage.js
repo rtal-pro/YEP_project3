@@ -51,7 +51,9 @@ function LandingPage(props) {
       {props.ids.length >= 0 && props.ids.length < 2 && props.room !== "####" && (
         <div className="TextBox">
           <div className="inTextBox">
-            <h4>Now we are waiting for 2 players to connect.</h4>
+            <h4>
+              Now we are waiting for {2 - props.ids.length} players to connect.
+            </h4>
           </div>
         </div>
       )}
