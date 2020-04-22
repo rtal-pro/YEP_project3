@@ -9,6 +9,8 @@ import { FiRefreshCw } from "react-icons/fi";
 
 function NavBar(props) {
   const key = "bottom";
+  const key1 = "bottom";
+  const key2 = "bottom";
   return (
     <div className="Header">
       <div className="LeftHeader">
@@ -16,7 +18,7 @@ function NavBar(props) {
         <div className="MainTypo">AirBattle</div>
       </div>
       <div className="RightHeader">
-        <OverlayTrigger
+        {/* <OverlayTrigger
           key={key}
           placement={key}
           overlay={
@@ -30,8 +32,8 @@ function NavBar(props) {
           </button>
         </OverlayTrigger>
         <OverlayTrigger
-          key={key}
-          placement={key}
+          key={key1}
+          placement={key1}
           overlay={
             <Tooltip>
               <strong>Number of player connected: {props.player}</strong>.
@@ -42,10 +44,10 @@ function NavBar(props) {
             <FaUserAstronaut />
             {props.player > 0 && <div className="Notif">{props.player}</div>}
           </button>
-        </OverlayTrigger>
+        </OverlayTrigger>*/}
         <OverlayTrigger
-          key={key}
-          placement={key}
+          key={key2}
+          placement={key2}
           overlay={
             <Tooltip>
               <strong>Click here to refresh this ID room.</strong>

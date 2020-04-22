@@ -4,31 +4,30 @@ import Unity, { UnityContent } from "react-unity-webgl";
 import "../Views/Views.css";
 
 function GamingPage(props) {
-  const data = props.data;
-  const unityContent = new UnityContent(
-    "airPong/Build/airPong.json",
-    "airPong/Build/UnityLoader.js"
+  const [unity, setUnity] = useState(
+    new UnityContent(
+      "airPong/Build/airPong.json",
+      "airPong/Build/UnityLoader.js"
+    )
   );
   console.log("show" + props.data);
 
-  function controlEvent(data) {
+  function controlEvent(unity, data) {
     // this function sends a message to a game object
     // named "SpawnController" to the public method
     // "SpawnEnemies" with a value of "10".
-    console.log("control" + data);
-    if (data === "up") {
-      console.log("seennddd" + data);
-      this.unityContent.send("Player1", "getCmd", "up");
-    }
+    console.log("before unity" + props.data);
+    unity.send("Player1", "getCmd", props.data);
+    console.log("after unity" + props.data);
   }
 
   useEffect(() => {
-    controlEvent(props.data);
-  }, [data]);
+    controlEvent(unity, props.data);
+  }, [props.data, unity]);
   return (
     <div className="GamePage">
       <div className="GameContainer">
-        <Unity unityContent={unityContent} />
+        <Unity unityContent={unity} />
       </div>
     </div>
   );
