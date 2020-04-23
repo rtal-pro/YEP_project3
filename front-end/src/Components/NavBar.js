@@ -1,6 +1,5 @@
 import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-
 import "../Views/Views.css";
 import { FaBattleNet } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";

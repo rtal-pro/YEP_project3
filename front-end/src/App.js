@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, BrowserRouter, Route } from "react-router-dom";
 import GamingPage from "./Views/GamingPage";
 import LandingPage from "./Views/LandingPage";
+import CollectionPage from "./Views/CollectionPage";
 import Sender from "./Views/Sender";
 import Room from "./Views/Room";
 import Navbar from "./Components/NavBar";
@@ -116,6 +117,11 @@ function App() {
               <LandingPage initialize={initialize} room={room} ids={ids} />
             )}
             path="/"
+          />
+          <Route
+            exact
+            render={(props) => <CollectionPage room={room} ids={ids} />}
+            path="/collection"
           />
           <Route exact component={Room} path="/room" />
           <Route exact component={Sender} path="/sender" />

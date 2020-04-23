@@ -10,7 +10,7 @@ function LandingPage(props) {
   const history = useHistory();
 
   function handleRoute() {
-    history.push("/game");
+    history.push("/collection");
   }
 
   return (
