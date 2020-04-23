@@ -43,7 +43,9 @@ function CollectionPage(props) {
     return gameCard;
   };
 
-  const handleSelect = () => {};
+  const handleSelect = () => {
+    history.push("/game");
+  };
   useEffect(() => {
     controlEvent();
   }, [props.data]);

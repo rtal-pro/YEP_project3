@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
 import GameLogo from "../Images/pong.png";
 import "../Views/Views.css";
+import Sound from "react-sound";
 
 function GameCard(props) {
   if (props.select === true) {
