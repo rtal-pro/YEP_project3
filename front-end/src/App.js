@@ -120,7 +120,9 @@ function App() {
           />
           <Route
             exact
-            render={(props) => <CollectionPage room={room} ids={ids} />}
+            render={(props) => (
+              <CollectionPage room={room} ids={ids} data={data} />
+            )}
             path="/collection"
           />
           <Route exact component={Room} path="/room" />

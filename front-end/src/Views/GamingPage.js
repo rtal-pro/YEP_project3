@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
 import Unity, { UnityContent } from "react-unity-webgl";
+import { useHistory } from "react-router-dom";
 import "../Views/Views.css";
 
 function GamingPage(props) {
+  const history = useHistory();
   const [unity, setUnity] = useState(
     new UnityContent(
       "airPong/Build/airPong.json",
@@ -19,6 +21,9 @@ function GamingPage(props) {
     console.log("before unity" + props.data);
     unity.send("Player1", "getCmd", props.data);
     console.log("after unity" + props.data);
+    if (props.data === "return") {
+      history.push("/collection");
+    }
   }
 
   useEffect(() => {

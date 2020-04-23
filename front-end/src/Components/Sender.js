@@ -119,6 +119,50 @@ function Sender() {
       >
         down
       </Button>
+      <Button
+        className="LittleButton"
+        onMouseDown={() => {
+          send("left");
+        }}
+        onMouseUp={() => {
+          send("def");
+        }}
+      >
+        left
+      </Button>
+      <Button
+        className="LittleButton"
+        onMouseDown={() => {
+          send("right");
+        }}
+        onMouseUp={() => {
+          send("def");
+        }}
+      >
+        right
+      </Button>
+      <Button
+        className="LittleButton"
+        onMouseDown={() => {
+          send("ok");
+        }}
+        onMouseUp={() => {
+          send("def");
+        }}
+      >
+        ok
+      </Button>
+      <Button
+        className="LittleButton"
+        onMouseDown={() => {
+          send("return");
+        }}
+        onMouseUp={() => {
+          send("def");
+        }}
+      >
+        return
+      </Button>
     </Card>
   );
 }

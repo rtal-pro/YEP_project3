@@ -9,9 +9,22 @@ function CollectionPage(props) {
   const history = useHistory();
   const gameNb = 4;
   const [select, setSelect] = useState(0);
-  const gameInfo = [
-    ["airPong/Build/airPong.json", "airPong/Build/UnityLoader.js"],
-  ];
+
+  function controlEvent() {
+    // this function sends a message to a game object
+    // named "SpawnController" to the public method
+    // "SpawnEnemies" with a value of "10".
+
+    if (props.data === "left") {
+      setSelect(select - 1);
+    }
+    if (props.data === "right") {
+      setSelect(select + 1);
+    }
+    if (props.data === "ok") {
+      history.push("/game");
+    }
+  }
 
   const showCard = () => {
     let gameCard = [];
@@ -30,9 +43,10 @@ function CollectionPage(props) {
     return gameCard;
   };
 
-  const handleSelect = () => {
-    history.push("/game");
-  };
+  const handleSelect = () => {};
+  useEffect(() => {
+    controlEvent();
+  }, [props.data]);
 
   return (
     <div className="CollectionPage">
