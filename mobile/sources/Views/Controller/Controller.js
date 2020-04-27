@@ -44,7 +44,7 @@ function Controller({ route }) {
           conn.send({ type: 'id', value: id });
         });
         conn.on('data', (data) => {
-          console.log(data);
+          console.log(`received data: ${data}`);
         });
         conn.on('close', () => {
           console.log('on conn.close');
@@ -86,6 +86,24 @@ function Controller({ route }) {
       >
         <View style={Style.button}>
           <Text>Up</Text>
+        </View>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
+        style={Style.button}
+        onPressIn={() => send('left')}
+        onPressOut={() => send('def')}
+      >
+        <View style={Style.button}>
+          <Text>Left</Text>
+        </View>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
+        style={Style.button}
+        onPressIn={() => send('right')}
+        onPressOut={() => send('def')}
+      >
+        <View style={Style.button}>
+          <Text>Right</Text>
         </View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
