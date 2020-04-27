@@ -21,7 +21,10 @@ function NumKeyBoard({ setId, id, navigation }) {
   }
 
   function confirmValue() {
-    console.log(id);
+    // console.log(id);
+    navigation.navigate('Controller', {
+      id,
+    });
   }
 
   function delValue() {
@@ -93,6 +96,7 @@ NumKeyBoard.propTypes = {
   id: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 
