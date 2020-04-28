@@ -16,7 +16,7 @@ function CollectionPage(props) {
       img: "./GameCollection/airPong/pong.png",
     },
     {
-      game: "racer",
+      game: "carRace",
       pathJson: "GameCollection/MyGame/Build/MyGame.json",
       pathLoader: "GameCollection/MyGame/Build/UnityLoader.js",
       img: "./GameCollection/MyGame/images.jpeg",
