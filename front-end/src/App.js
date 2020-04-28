@@ -17,11 +17,19 @@ function App() {
   const [room, setRoom] = useState("####");
   const [ids, setIds] = useState([]);
   const [data, setData] = useState();
+  const [game, setGame] = useState({});
 
   const closeConnection = () => {
     for (let i = 0; i < myConn.length; i++) {
       myConn[i].close();
       setConn([]);
+    }
+  };
+
+  const sendData = (data) => {
+    for (let i = 0; i < myConn.length; i++) {
+      myConn[i].send(data);
+      console.log(data.game);
     }
   };
 
@@ -108,7 +116,9 @@ function App() {
         <Switch>
           <Route
             exact
-            render={(props) => <GamingPage room={room} ids={ids} data={data} />}
+            render={(props) => (
+              <GamingPage room={room} ids={ids} data={data} game={game} />
+            )}
             path="/game"
           />
           <Route
@@ -121,7 +131,13 @@ function App() {
           <Route
             exact
             render={(props) => (
-              <CollectionPage room={room} ids={ids} data={data} />
+              <CollectionPage
+                room={room}
+                ids={ids}
+                data={data}
+                send={sendData}
+                game={setGame}
+              />
             )}
             path="/collection"
           />

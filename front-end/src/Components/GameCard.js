@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
-import GameLogo from "../Images/pong.png";
 import "../Views/Views.css";
-import Sound from "react-sound";
 
 function GameCard(props) {
   if (props.select === true) {
     return (
       <div className="CollectionCardSelected">
         <button className="inCollectionCardSelected">
-          <img src={GameLogo}></img>
+          <img src={props.game.img}></img>
         </button>
       </div>
     );
@@ -17,7 +15,7 @@ function GameCard(props) {
     return (
       <div className="CollectionCardUnSelected">
         <div className="inCollectionCardUnSelected">
-          <img className="ImageCard" src={GameLogo}></img>
+          <img className="ImageCard" src={props.game.img}></img>
         </div>
       </div>
     );

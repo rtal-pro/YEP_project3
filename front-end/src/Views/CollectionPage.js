@@ -7,8 +7,21 @@ import "../Views/Views.css";
 
 function CollectionPage(props) {
   const history = useHistory();
-  const gameNb = 4;
   const [select, setSelect] = useState(0);
+  const gameCo = [
+    {
+      game: "airPong",
+      pathJson: "GameCollection/airPong/Build/airPong.json",
+      pathLoader: "GameCollection/airPong/Build/UnityLoader.js",
+      img: "./GameCollection/airPong/pong.png",
+    },
+    {
+      game: "racer",
+      pathJson: "GameCollection/MyGame/Build/MyGame.json",
+      pathLoader: "GameCollection/MyGame/Build/UnityLoader.js",
+      img: "./GameCollection/MyGame/images.jpeg",
+    },
+  ];
 
   function controlEvent() {
     // this function sends a message to a game object
@@ -22,28 +35,31 @@ function CollectionPage(props) {
       setSelect(select + 1);
     }
     if (props.data === "ok") {
+      props.game(gameCo[select]);
+      props.send(gameCo[select]);
       history.push("/game");
     }
   }
 
   const showCard = () => {
     let gameCard = [];
-    for (let i = 0; i < gameNb; i++) {
+    for (let i = 0; i < gameCo.length; i++) {
       if (select === i) {
-        gameCard.push(<GameCard select={true}></GameCard>);
+        gameCard.push(<GameCard game={gameCo[i]} select={true}></GameCard>);
       } else {
-        gameCard.push(<GameCard select={false}></GameCard>);
+        gameCard.push(<GameCard game={gameCo[i]} select={false}></GameCard>);
       }
     }
-    if (select > gameNb - 1) {
+    if (select > gameCo.length - 1) {
       setSelect(0);
     } else if (select < 0) {
-      setSelect(gameNb - 1);
+      setSelect(gameCo.length - 1);
     }
     return gameCard;
   };
 
   const handleSelect = () => {
+    props.send({ type: "game" });
     history.push("/game");
   };
   useEffect(() => {

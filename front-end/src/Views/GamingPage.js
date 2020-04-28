@@ -7,20 +7,14 @@ import "../Views/Views.css";
 function GamingPage(props) {
   const history = useHistory();
   const [unity, setUnity] = useState(
-    new UnityContent(
-      "airPong/Build/airPong.json",
-      "airPong/Build/UnityLoader.js"
-    )
+    new UnityContent(props.game.pathJson, props.game.pathLoader)
   );
-  console.log("show" + props.data);
 
   function controlEvent(unity) {
     // this function sends a message to a game object
     // named "SpawnController" to the public method
     // "SpawnEnemies" with a value of "10".
-    console.log("before unity" + props.data);
     unity.send("Player1", "getCmd", props.data);
-    console.log("after unity" + props.data);
     if (props.data === "return") {
       history.push("/collection");
     }
