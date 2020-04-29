@@ -3,24 +3,24 @@ import { StyleSheet } from 'react-native';
 const Style = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  rowController: {
-    flexDirection: 'row',
+  button: {
+    backgroundColor: 'white',
+    width: 200,
+    height: 200,
+    borderRadius: 100 / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
     width: 50,
     height: 50,
-  },
-  button: {
-    backgroundColor: 'white',
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
   },
 });
 
