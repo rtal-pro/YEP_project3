@@ -29,7 +29,7 @@ function App() {
   const sendData = (data) => {
     for (let i = 0; i < myConn.length; i++) {
       myConn[i].send(data);
-      console.log(data.game);
+      console.log({ id: i, data: data.game });
     }
   };
 
