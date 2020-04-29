@@ -11,6 +11,7 @@ import Peer from "peerjs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/video-react/dist/video-react.css";
 import "./App.css";
+import { GiBreakingChain } from "react-icons/gi";
 
 function App() {
   const [myConn, setConn] = useState([]);
@@ -78,7 +79,13 @@ function App() {
 
   const handleEvent = (info, i) => {
     {
-      setData(info);
+      switch (info.type) {
+        case "id":
+          setIds((ids) => [...ids, info.value]);
+        default:
+          setData(info);
+          break;
+      }
     }
   };
 
