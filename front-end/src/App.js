@@ -28,7 +28,7 @@ function App() {
 
   const sendData = (data) => {
     for (let i = 0; i < myConn.length; i++) {
-      myConn[i].send(data);
+      myConn[i].send({ id: i, game: data.game });
       console.log({ id: i, game: data.game });
     }
   };
