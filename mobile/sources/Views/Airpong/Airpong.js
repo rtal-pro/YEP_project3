@@ -15,10 +15,11 @@ import Down from '../../../assets/key-arrow-down.png';
 
 YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
 function Airpong({ route }) {
-  const { connManager } = route.params;
+  const { connManager, id } = route.params;
 
   useFocusEffect(
     React.useCallback(() => {
+      console.log(id);
       Orientation.lockToLandscapeLeft();
       return () => {
         Orientation.unlockAllOrientations();
@@ -27,8 +28,11 @@ function Airpong({ route }) {
   );
 
   function send(type, value) {
+    const classId = `Player${(id + 1).toString()}`;
+
+    console.log(classId);
     if (connManager && connManager.open) {
-      connManager.send({ type, value });
+      connManager.send({ player: classId, function: type, input: value });
     }
   }
 
@@ -37,8 +41,8 @@ function Airpong({ route }) {
       <View style={Style.buttonContainer}>
         <TouchableWithoutFeedback
           style={Style.button}
-          onPressIn={() => send('move', 'up')}
-          onPressOut={() => send('move', 'def')}
+          onPressIn={() => send('getCmd', 'up')}
+          onPressOut={() => send('getCmd', 'def')}
         >
           <View style={Style.button}>
             <Image style={Style.image} source={Up} />
@@ -46,8 +50,8 @@ function Airpong({ route }) {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
           style={Style.button}
-          onPressIn={() => send('move', 'down')}
-          onPressOut={() => send('move', 'def')}
+          onPressIn={() => send('getCmd', 'down')}
+          onPressOut={() => send('getCmd', 'def')}
         >
           <View style={Style.button}>
             <Image style={Style.image} source={Down} />
@@ -62,6 +66,7 @@ Airpong.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
       connManager: PropTypes.object.isRequired,
+      id: PropTypes.number.isRequired,
     }),
   }).isRequired,
 };

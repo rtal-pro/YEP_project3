@@ -20,6 +20,7 @@ let peer = null;
 let conn = null;
 function Controller({ route, navigation }) {
   const { id } = route.params;
+  const [player, setPlayer] = React.useState(-1);
 
   function isObject(obj) {
     return obj !== undefined && obj !== null && obj.constructor === Object;
@@ -27,7 +28,7 @@ function Controller({ route, navigation }) {
 
   function send(type, value) {
     if (conn && conn.open) {
-      conn.send({ type, value });
+      conn.send({ input: value });
     }
   }
 
@@ -67,13 +68,17 @@ function Controller({ route, navigation }) {
             console.log(`received data: ${JSON.stringify(data)}`);
             const str = JSON.stringify(data);
             const obj = JSON.parse(str);
+            console.log(`log obj id: ${obj.id}`);
+            setPlayer(obj.id);
+            console.log(`titi ${player}`);
             if (obj.game === 'airPong') {
               navigation.navigate('Airpong', {
                 connManager: conn,
+                id: obj.id,
               });
             }
           } else {
-            console.log(data);
+            console.log(`not object ${data}`);
           }
         });
         conn.on('close', () => {
@@ -98,7 +103,7 @@ function Controller({ route, navigation }) {
       return () => {
         Orientation.unlockAllOrientations();
       };
-    }, []),
+    }, [player]),
   );
 
   return (
