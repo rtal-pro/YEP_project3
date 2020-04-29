@@ -21,6 +21,12 @@ function CollectionPage(props) {
       pathLoader: "GameCollection/MyGame/Build/UnityLoader.js",
       img: "./GameCollection/MyGame/images.jpeg",
     },
+    {
+      //game: "jeuxAbel",
+      //pathJson: "path jeux abel",
+      //pathLoader: "path jeux abel",
+      //img: "./GameCollection/MyGame/images.jpeg",
+    },
   ];
 
   function controlEvent() {
