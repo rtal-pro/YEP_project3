@@ -28,13 +28,13 @@ function CollectionPage(props) {
     // named "SpawnController" to the public method
     // "SpawnEnemies" with a value of "10".
 
-    if (props.data === "left") {
+    if (props.data.input === "left") {
       setSelect(select - 1);
     }
-    if (props.data === "right") {
+    if (props.data.input === "right") {
       setSelect(select + 1);
     }
-    if (props.data === "ok") {
+    if (props.data.input === "ok") {
       props.game(gameCo[select]);
       props.send(gameCo[select]);
       history.push("/game");
@@ -58,10 +58,6 @@ function CollectionPage(props) {
     return gameCard;
   };
 
-  const handleSelect = () => {
-    props.send({ type: "game" });
-    history.push("/game");
-  };
   useEffect(() => {
     controlEvent();
   }, [props.data]);
@@ -74,29 +70,6 @@ function CollectionPage(props) {
         <GiRetroController className="FlameIcon" />
       </div>
       <div className="inCollectionBox">{showCard()}</div>
-      <div>
-        <button
-          style={({ width: "400px" }, { marginRight: "10px" })}
-          className="GameCollectionButton"
-          onClick={() => setSelect(select - 1)}
-        >
-          left
-        </button>
-        <button
-          style={({ width: "300px" }, { marginRight: "10px" })}
-          className="GameCollectionButton"
-          onClick={() => setSelect(select + 1)}
-        >
-          right
-        </button>
-        <button
-          style={({ width: "300px" }, { marginRight: "10px" })}
-          className="GameCollectionButton"
-          onClick={() => handleSelect()}
-        >
-          Ok
-        </button>
-      </div>
     </div>
   );
 }
