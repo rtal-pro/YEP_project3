@@ -11,10 +11,7 @@ function GamingPage(props) {
   );
 
   function controlEvent(unity) {
-    // this function sends a message to a game object
-    // named "SpawnController" to the public method
-    // "SpawnEnemies" with a value of "10".
-    unity.send("Player1", "getCmd", props.data);
+    unity.send(props.data.player, props.data.function, props.data.input);
     if (props.data === "return") {
       history.push("/collection");
     }

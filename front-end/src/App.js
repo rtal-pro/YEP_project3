@@ -77,17 +77,8 @@ function App() {
   };
 
   const handleEvent = (info, i) => {
-    console.log("event:" + info);
-    switch (info.type) {
-      case "id":
-        setIds((ids) => [...ids, info.value]);
-        break;
-      case "move":
-        console.log("in move" + info.value);
-        setData(info.value);
-        break;
-      default:
-        break;
+    {
+      setData(info);
     }
   };
 
