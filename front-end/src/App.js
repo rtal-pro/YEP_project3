@@ -3,15 +3,13 @@ import { Switch, BrowserRouter, Route } from "react-router-dom";
 import GamingPage from "./Views/GamingPage";
 import LandingPage from "./Views/LandingPage";
 import CollectionPage from "./Views/CollectionPage";
-import Sender from "./Views/Sender";
-import Room from "./Views/Room";
 import Navbar from "./Components/NavBar";
+import MobilePage from "./Views/MobilePage";
 import randomstring from "randomstring";
 import Peer from "peerjs";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../node_modules/video-react/dist/video-react.css";
 import "./App.css";
-import { GiBreakingChain } from "react-icons/gi";
+import { BrowserView, MobileView } from "react-device-detect";
 
 function App() {
   const [myConn, setConn] = useState([]);
@@ -104,45 +102,48 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar
-        ids={ids}
-        room={room}
-        player={myConn.length}
-        initialize={initialize}
-      ></Navbar>
-      <BrowserRouter>
-        <Switch>
-          <Route
-            exact
-            render={(props) => (
-              <GamingPage room={room} ids={ids} data={data} game={game} />
-            )}
-            path="/game"
-          />
-          <Route
-            exact
-            render={(props) => (
-              <LandingPage initialize={initialize} room={room} ids={ids} />
-            )}
-            path="/"
-          />
-          <Route
-            exact
-            render={(props) => (
-              <CollectionPage
-                room={room}
-                ids={ids}
-                data={data}
-                send={sendData}
-                game={setGame}
-              />
-            )}
-            path="/collection"
-          />
-          <Route exact component={Room} path="/room" />
-          <Route exact component={Sender} path="/sender" />
-        </Switch>
-      </BrowserRouter>
+      <BrowserView>
+        <Navbar
+          ids={ids}
+          room={room}
+          player={myConn.length}
+          initialize={initialize}
+        ></Navbar>
+        <BrowserRouter>
+          <Switch>
+            <Route
+              exact
+              render={(props) => (
+                <GamingPage room={room} ids={ids} data={data} game={game} />
+              )}
+              path="/game"
+            />
+            <Route
+              exact
+              render={(props) => (
+                <LandingPage initialize={initialize} room={room} ids={ids} />
+              )}
+              path="/"
+            />
+            <Route
+              exact
+              render={(props) => (
+                <CollectionPage
+                  room={room}
+                  ids={ids}
+                  data={data}
+                  send={sendData}
+                  game={setGame}
+                />
+              )}
+              path="/collection"
+            />
+          </Switch>
+        </BrowserRouter>
+      </BrowserView>
+      <MobileView>
+        <MobilePage />
+      </MobileView>
     </div>
   );
 }

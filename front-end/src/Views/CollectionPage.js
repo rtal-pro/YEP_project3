@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Container, Button } from "react-bootstrap";
 import { GiRetroController } from "react-icons/gi";
 import GameCard from "../Components/GameCard";
 import "../Views/Views.css";
