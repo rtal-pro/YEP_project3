@@ -23,7 +23,7 @@ function Airkart({ route }) {
 
     console.log(value);
     if (connManager && connManager.open) {
-      connManager.send({ player: 'ArcadeKart', function: type, input: value });
+      connManager.send({ player: 'players', function: type, input: value });
     }
   }
 

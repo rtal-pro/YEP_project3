@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-  View, TouchableWithoutFeedback, Image,
-} from 'react-native';
+import { View, TouchableWithoutFeedback, Image } from 'react-native';
 
 import { useFocusEffect } from '@react-navigation/native';
 import Peer from 'react-native-peerjs';
@@ -19,7 +17,7 @@ import Ok from '../../../assets/ok.png';
 let peer = null;
 let conn = null;
 function Controller({ route, navigation }) {
-  const { id } = route.params;
+  const { id, ip } = route.params;
   const [player, setPlayer] = React.useState(-1);
 
   function isObject(obj) {
@@ -34,9 +32,10 @@ function Controller({ route, navigation }) {
 
   useFocusEffect(
     React.useCallback(() => {
+      console.log(id);
       Orientation.lockToPortrait();
       peer = new Peer({
-        host: 'https://192.168.1.24',
+        host: ip,
         port: 4000,
         secure: false,
         path: '/',
@@ -52,6 +51,7 @@ function Controller({ route, navigation }) {
           ],
         },
       });
+      console.log(peer);
       peer.on('open', () => {
         console.log(`My name is :${peer.id}`);
         console.log('In function: Join');
@@ -180,6 +180,7 @@ Controller.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
+      ip: PropTypes.string.isRequired,
     }),
   }).isRequired,
   navigation: PropTypes.shape({

@@ -3,6 +3,9 @@ import { StyleSheet } from 'react-native';
 const Style = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ebebe0',
   },
   up: {
     flex: 0.5,
@@ -47,6 +50,15 @@ const Style = StyleSheet.create({
     marginRight: 20,
     marginLeft: 20,
     color: 'white',
+  },
+  next: {
+    backgroundColor: '#00cc66',
+    borderRadius: 5,
+    margin: 50,
+    padding: 10,
+  },
+  nextTitle: {
+    color: '#ebebe0',
   },
 });
 
