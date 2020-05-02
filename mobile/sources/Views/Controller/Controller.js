@@ -36,7 +36,7 @@ function Controller({ route, navigation }) {
     React.useCallback(() => {
       Orientation.lockToPortrait();
       peer = new Peer({
-        host: '192.168.1.24',
+        host: 'https://192.168.1.24',
         port: 4000,
         secure: false,
         path: '/',
@@ -73,6 +73,11 @@ function Controller({ route, navigation }) {
             console.log(`titi ${player}`);
             if (obj.game === 'airPong') {
               navigation.navigate('Airpong', {
+                connManager: conn,
+                id: obj.id,
+              });
+            } else if (obj.game === 'airKart') {
+              navigation.navigate('Airkart', {
                 connManager: conn,
                 id: obj.id,
               });

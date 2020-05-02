@@ -15,17 +15,17 @@ function CollectionPage(props) {
       pathLoader: "GameCollection/airPong/Build/UnityLoader.js",
       img: "./GameCollection/airPong/pong.png",
     },
+    // {
+    //   game: "carRace",
+    //   pathJson: "GameCollection/MyGame/Build/MyGame.json",
+    //   pathLoader: "GameCollection/MyGame/Build/UnityLoader.js",
+    //   img: "./GameCollection/MyGame/images.jpeg",
+    // },
     {
-      game: "carRace",
-      pathJson: "GameCollection/MyGame/Build/MyGame.json",
-      pathLoader: "GameCollection/MyGame/Build/UnityLoader.js",
+      game: "airKart",
+      pathJson: "GameCollection/TEST_KART/Build/TEST_KART.json",
+      pathLoader: "GameCollection/TEST_KART/Build/UnityLoader.js",
       img: "./GameCollection/MyGame/images.jpeg",
-    },
-    {
-      //game: "jeuxAbel",
-      //pathJson: "path jeux abel",
-      //pathLoader: "path jeux abel",
-      //img: "./GameCollection/MyGame/images.jpeg",
     },
   ];
 
@@ -66,7 +66,7 @@ function CollectionPage(props) {
 
   useEffect(() => {
     controlEvent();
-  }, [props.data]);
+  }, [controlEvent, props.data]);
 
   return (
     <div className="CollectionPage">

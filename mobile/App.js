@@ -12,6 +12,7 @@ import Welcome from './sources/Views/Welcome/Welcome';
 import Code from './sources/Views/Code/Code';
 import Controller from './sources/Views/Controller/Controller';
 import Airpong from './sources/Views/Airpong/Airpong';
+import Airkart from './sources/Views/Airkart/Airkart';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="Code" component={Code} options={{ headerShown: false }} />
         <Stack.Screen name="Controller" component={Controller} options={{ headerShown: false }} />
         <Stack.Screen name="Airpong" component={Airpong} options={{ headerShown: false }} />
+        <Stack.Screen name="Airkart" component={Airkart} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

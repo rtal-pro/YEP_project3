@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, Image, YellowBox, TouchableWithoutFeedback,
+  View, Image, YellowBox, TouchableHighlight,
 } from 'react-native';
 
 import { useFocusEffect } from '@react-navigation/native';
@@ -30,7 +30,7 @@ function Airpong({ route }) {
   function send(type, value) {
     const classId = `Player${(id + 1).toString()}`;
 
-    console.log(classId);
+    console.log(`${classId} ${value}`);
     if (connManager && connManager.open) {
       connManager.send({ player: classId, function: type, input: value });
     }
@@ -39,24 +39,22 @@ function Airpong({ route }) {
   return (
     <View style={Style.container}>
       <View style={Style.buttonContainer}>
-        <TouchableWithoutFeedback
-          style={Style.button}
-          onPressIn={() => send('getCmd', 'up')}
-          onPressOut={() => send('getCmd', 'def')}
-        >
-          <View style={Style.button}>
-            <Image style={Style.image} source={Up} />
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          style={Style.button}
-          onPressIn={() => send('getCmd', 'down')}
-          onPressOut={() => send('getCmd', 'def')}
-        >
-          <View style={Style.button}>
-            <Image style={Style.image} source={Down} />
-          </View>
-        </TouchableWithoutFeedback>
+        <View onTouchStart={() => send('getCmd', 'up')} onTouchEnd={() => send('getCmd', 'def')}>
+          <TouchableHighlight style={Style.button}>
+            <View style={Style.button}>
+              <Image style={Style.image} source={Up} />
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View onTouchStart={() => send('getCmd', 'down')} onTouchEnd={() => send('getCmd', 'def')}>
+          <TouchableHighlight
+            style={Style.button}
+          >
+            <View style={Style.button}>
+              <Image style={Style.image} source={Down} />
+            </View>
+          </TouchableHighlight>
+        </View>
       </View>
     </View>
   );
