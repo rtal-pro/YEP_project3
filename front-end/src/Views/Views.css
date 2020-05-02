@@ -414,3 +414,17 @@
   padding: 10px;
   max-width: 250px;
 }
+
+.MobileView {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DownloadButton {
+  background: none;
+  border: none;
+  margin-left: -20px;
+  margin-top: 20px;
+}
