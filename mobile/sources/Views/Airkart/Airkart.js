@@ -15,11 +15,12 @@ import Right from '../../../assets/key-arrow-right.png';
 import Start from '../../../assets/start.png';
 import Exit from '../../../assets/exit.png';
 
+YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
 function Airkart({ route }) {
   const { connManager, id } = route.params;
 
   function send(type, key, keyValue) {
-    const value = `${(id + 1)}:${key}:${keyValue}`;
+    const value = `${id + 1}:${key}:${keyValue}`;
 
     console.log(value);
     if (connManager && connManager.open) {
@@ -54,9 +55,19 @@ function Airkart({ route }) {
           onTouchStart={() => send('getmessage', 'Start', 'Down')}
           onTouchEnd={() => send('getmessage', 'Start', 'Up')}
         >
-          <TouchableHighlight style={Style.button}>
-            <View style={Style.button}>
+          <TouchableHighlight>
+            <View style={Style.option}>
               <Image style={Style.image} source={Start} />
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View
+          onTouchStart={() => send('getmessage', 'Exit', 'Down')}
+          onTouchEnd={() => send('getmessage', 'Exit', 'Up')}
+        >
+          <TouchableHighlight>
+            <View style={Style.option}>
+              <Image style={Style.image} source={Exit} />
             </View>
           </TouchableHighlight>
         </View>

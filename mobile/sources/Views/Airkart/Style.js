@@ -18,6 +18,14 @@ const Style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  option: {
+    backgroundColor: 'white',
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   image: {
     width: 50,
     height: 50,
