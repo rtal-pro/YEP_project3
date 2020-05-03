@@ -16,7 +16,9 @@ import Return from '../../../assets/return.png';
 
 YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
 function Airpong({ route, navigation }) {
-  const { connManager, id } = route.params;
+  const {
+    connManager, id, peerManager, ip,
+  } = route.params;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -31,6 +33,10 @@ function Airpong({ route, navigation }) {
   function sendReturn() {
     if (connManager && connManager.open) {
       connManager.send('return');
+      /* navigation.navigate('Controller', {
+        id: id.toString(),
+        ip,
+      }); */
       navigation.goBack();
     }
   }
@@ -61,7 +67,7 @@ function Airpong({ route, navigation }) {
             </View>
           </TouchableHighlight>
         </View>
-        <View onTouchStart={() => send('getCmd', 'down')} onTouchEnd={() => send('getCmd', 'def')}>
+        <View onTouchStart={() => send('getCmd', 'down')}>
           <TouchableHighlight style={Style.button}>
             <View style={Style.button}>
               <Image style={Style.image} source={Down} />
@@ -78,10 +84,12 @@ Airpong.propTypes = {
     params: PropTypes.shape({
       connManager: PropTypes.object.isRequired,
       id: PropTypes.number.isRequired,
+      peerManager: PropTypes.object.isRequired,
+      ip: PropTypes.string.isRequired,
     }),
   }).isRequired,
   navigation: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 export default Airpong;

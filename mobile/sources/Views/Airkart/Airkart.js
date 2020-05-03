@@ -18,7 +18,9 @@ import Return from '../../../assets/return.png';
 
 YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
 function Airkart({ route, navigation }) {
-  const { connManager, id } = route.params;
+  const {
+    connManager, id, peerManager, ip,
+  } = route.params;
 
   function send(type, key, keyValue) {
     const value = `${id + 1}:${key}:${keyValue}`;
@@ -32,6 +34,10 @@ function Airkart({ route, navigation }) {
   function sendReturn() {
     if (connManager && connManager.open) {
       connManager.send('return');
+      /* navigation.navigate('Controller', {
+        id,
+        ip,
+      }); */
       navigation.goBack();
     }
   }
@@ -89,7 +95,7 @@ function Airkart({ route, navigation }) {
           </TouchableHighlight>
         </View>
       </View>
-      <View onTouchStart={() => sendReturn()} onTouchEnd={() => sendReturn()} style={Style.down}>
+      <View onTouchStart={() => sendReturn()} style={Style.down}>
         <TouchableHighlight style={Style.option}>
           <View>
             <Image style={Style.image} source={Return} />
@@ -105,10 +111,12 @@ Airkart.propTypes = {
     params: PropTypes.shape({
       connManager: PropTypes.object.isRequired,
       id: PropTypes.number.isRequired,
+      peerManager: PropTypes.object.isRequired,
+      ip: PropTypes.string.isRequired,
     }),
   }).isRequired,
   navigation: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 

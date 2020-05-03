@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { View, TouchableWithoutFeedback, Image } from 'react-native';
+import {
+  View, TouchableWithoutFeedback, TouchableHighlight, Image,
+} from 'react-native';
 
 import { useFocusEffect } from '@react-navigation/native';
 import Peer from 'react-native-peerjs';
@@ -19,14 +21,17 @@ let conn = null;
 function Controller({ route, navigation }) {
   const { id, ip } = route.params;
   const [player, setPlayer] = React.useState(-1);
+  const [connected, isConnected] = React.useState(false);
 
   function isObject(obj) {
     return obj !== undefined && obj !== null && obj.constructor === Object;
   }
 
   function send(type, value) {
+    console.log(value);
     if (conn && conn.open) {
       conn.send({ input: value });
+      conn.send({ input: 'def' });
     }
   }
 
@@ -53,45 +58,54 @@ function Controller({ route, navigation }) {
       });
       console.log(peer);
       peer.on('open', () => {
+        isConnected(true);
         console.log(`My name is :${peer.id}`);
         console.log('In function: Join');
-        conn = peer.connect(id, {
-          reliable: true,
-          serialization: 'json',
-        });
-        conn.on('open', () => {
-          console.log(`on conn.on:open:${conn.peer}`);
-          conn.send({ type: 'id', value: id });
-        });
-        conn.on('data', (data) => {
-          if (isObject(data)) {
-            console.log(`received data: ${JSON.stringify(data)}`);
-            const str = JSON.stringify(data);
-            const obj = JSON.parse(str);
-            console.log(`log obj id: ${obj.id}`);
-            setPlayer(obj.id);
-            console.log(`titi ${player}`);
-            if (obj.game === 'airPong') {
-              navigation.navigate('Airpong', {
-                connManager: conn,
-                id: obj.id,
-              });
-            } else if (obj.game === 'airKart') {
-              navigation.navigate('Airkart', {
-                connManager: conn,
-                id: obj.id,
-              });
+        if (!connected) {
+          conn = peer.connect(id, {
+            reliable: true,
+            serialization: 'json',
+          });
+        }
+        if (conn !== null) {
+          conn.on('open', () => {
+            console.log(`on conn.on:open:${conn.peer}`);
+            conn.send({ type: 'id', value: id });
+          });
+          conn.on('data', (data) => {
+            if (isObject(data)) {
+              console.log(`received data: ${JSON.stringify(data)}`);
+              const str = JSON.stringify(data);
+              const obj = JSON.parse(str);
+              console.log(`log obj id: ${obj.id}`);
+              setPlayer(obj.id);
+              console.log(`titi ${player}`);
+              if (obj.game === 'airPong') {
+                navigation.navigate('Airpong', {
+                  connManager: conn,
+                  id: obj.id,
+                  peerManager: peer,
+                  ip,
+                });
+              } else if (obj.game === 'airKart') {
+                navigation.navigate('Airkart', {
+                  connManager: conn,
+                  id: obj.id,
+                  peerManager: peer,
+                  ip,
+                });
+              }
+            } else {
+              console.log(`not object ${data}`);
             }
-          } else {
-            console.log(`not object ${data}`);
-          }
-        });
-        conn.on('close', () => {
-          console.log('on conn.close');
-        });
-        conn.on('error', (err) => {
-          console.log(`on conn.err: ${err}`);
-        });
+          });
+          conn.on('close', () => {
+            console.log('on conn.close');
+          });
+          conn.on('error', (err) => {
+            console.log(`on conn.err: ${err}`);
+          });
+        }
       });
       peer.on('disconnected', () => {
         console.log('Connection lost. Please reconnect');
@@ -113,65 +127,43 @@ function Controller({ route, navigation }) {
 
   return (
     <View style={Style.container}>
-      <View>
-        <TouchableWithoutFeedback
-          style={Style.button}
-          onPressIn={() => send('move', 'up')}
-          onPressOut={() => send('move', 'def')}
-        >
+      <View onTouchStart={() => send('move', 'up')} onTouchEnd={() => send('move', 'def')}>
+        <TouchableHighlight style={Style.button}>
           <View style={Style.button}>
             <Image style={Style.image} source={Up} />
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableHighlight>
       </View>
       <View style={Style.rowController}>
-        <TouchableWithoutFeedback
-          style={Style.button}
-          onPressIn={() => send('move', 'left')}
-          onPressOut={() => send('move', 'def')}
-        >
-          <View style={Style.button}>
-            <Image style={Style.image} source={Left} />
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          style={Style.button}
-          onPressIn={() => send('move', 'ok')}
-          onPressOut={() => send('move', 'def')}
-        >
-          <View style={Style.button}>
-            <Image style={Style.image} source={Ok} />
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          style={Style.button}
-          onPressIn={() => send('move', 'right')}
-          onPressOut={() => send('move', 'def')}
-        >
-          <View style={Style.button}>
-            <Image style={Style.image} source={Right} />
-          </View>
-        </TouchableWithoutFeedback>
+        <View onTouchStart={() => send('move', 'left')} onTouchEnd={() => send('move', 'def')}>
+          <TouchableHighlight style={Style.button}>
+            <View style={Style.button}>
+              <Image style={Style.image} source={Left} />
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View onTouchStart={() => send('move', 'ok')} onTouchEnd={() => send('move', 'def')}>
+          <TouchableHighlight style={Style.button}>
+            <View style={Style.button}>
+              <Image style={Style.image} source={Ok} />
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View onTouchStart={() => send('move', 'right')} onTouchEnd={() => send('move', 'def')}>
+          <TouchableHighlight style={Style.button}>
+            <View style={Style.button}>
+              <Image style={Style.image} source={Right} />
+            </View>
+          </TouchableHighlight>
+        </View>
       </View>
-      <TouchableWithoutFeedback
-        style={Style.button}
-        onPressIn={() => send('move', 'down')}
-        onPressOut={() => send('move', 'def')}
-      >
-        <View style={Style.button}>
-          <Image style={Style.image} source={Down} />
-        </View>
-      </TouchableWithoutFeedback>
-      {/* <TouchableWithoutFeedback
-        style={Style.button}
-        onPressIn={() => navigation.navigate('Airpong', {
-          connManager: conn,
-        })}
-      >
-        <View style={Style.button}>
-          <Image style={Style.image} source={Ok} />
-        </View>
-      </TouchableWithoutFeedback> */}
+      <View onTouchStart={() => send('move', 'down')} onTouchEnd={() => send('move', 'def')}>
+        <TouchableHighlight style={Style.button}>
+          <View style={Style.button}>
+            <Image style={Style.image} source={Down} />
+          </View>
+        </TouchableHighlight>
+      </View>
     </View>
   );
 }

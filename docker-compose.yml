@@ -1,0 +1,18 @@
+version: "3.3"
+
+services:
+  front:
+    build: ./front-end
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./front-end:/front
+    stdin_open: true
+  back:
+    build: ./back-end
+    restart: always
+    ports:
+      - 4000:4000
+    volumes:
+      - ./back-end:/back
