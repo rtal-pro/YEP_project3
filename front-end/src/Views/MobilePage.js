@@ -18,13 +18,15 @@ function MobilePage(props) {
           Please download the app!
         </div>
       </div>
-      <div className="RoomId" style={{ marginTop: "70px" }}>
-        <div className="NumberId" style={{ height: "100px" }}>
-          <button className="DownloadButton" onClick={handleDownload()}>
-            <BsCloudDownload className="FlameIcon" />
-          </button>
+      <a href="app-release.apk" download>
+        <div className="RoomId" style={{ marginTop: "70px" }}>
+          <div className="NumberId" style={{ height: "100px" }}>
+            <button className="DownloadButton" onClick={handleDownload()}>
+              <BsCloudDownload className="FlameIcon" />
+            </button>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 }

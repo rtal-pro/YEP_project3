@@ -4,6 +4,10 @@ const Style = StyleSheet.create({
   container: {
     flex: 1,
   },
+  down: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',

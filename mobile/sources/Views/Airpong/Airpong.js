@@ -12,9 +12,10 @@ import Style from './Style';
 
 import Up from '../../../assets/key-arrow-up.png';
 import Down from '../../../assets/key-arrow-down.png';
+import Return from '../../../assets/return.png';
 
 YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
-function Airpong({ route }) {
+function Airpong({ route, navigation }) {
   const { connManager, id } = route.params;
 
   useFocusEffect(
@@ -22,10 +23,17 @@ function Airpong({ route }) {
       console.log(id);
       Orientation.lockToLandscapeLeft();
       return () => {
-        Orientation.unlockAllOrientations();
+        // Orientation.unlockAllOrientations();
       };
     }, []),
   );
+
+  function sendReturn() {
+    if (connManager && connManager.open) {
+      connManager.send('return');
+      navigation.goBack();
+    }
+  }
 
   function send(type, value) {
     const classId = `Player${(id + 1).toString()}`;
@@ -46,10 +54,15 @@ function Airpong({ route }) {
             </View>
           </TouchableHighlight>
         </View>
+        <View onTouchStart={() => sendReturn()}>
+          <TouchableHighlight style={Style.button}>
+            <View style={Style.button}>
+              <Image style={Style.image} source={Return} />
+            </View>
+          </TouchableHighlight>
+        </View>
         <View onTouchStart={() => send('getCmd', 'down')} onTouchEnd={() => send('getCmd', 'def')}>
-          <TouchableHighlight
-            style={Style.button}
-          >
+          <TouchableHighlight style={Style.button}>
             <View style={Style.button}>
               <Image style={Style.image} source={Down} />
             </View>
@@ -66,6 +79,9 @@ Airpong.propTypes = {
       connManager: PropTypes.object.isRequired,
       id: PropTypes.number.isRequired,
     }),
+  }).isRequired,
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
 };
 export default Airpong;

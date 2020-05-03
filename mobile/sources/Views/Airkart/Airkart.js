@@ -14,9 +14,10 @@ import Left from '../../../assets/key-arrow-left.png';
 import Right from '../../../assets/key-arrow-right.png';
 import Start from '../../../assets/start.png';
 import Exit from '../../../assets/exit.png';
+import Return from '../../../assets/return.png';
 
 YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
-function Airkart({ route }) {
+function Airkart({ route, navigation }) {
   const { connManager, id } = route.params;
 
   function send(type, key, keyValue) {
@@ -28,9 +29,15 @@ function Airkart({ route }) {
     }
   }
 
+  function sendReturn() {
+    if (connManager && connManager.open) {
+      connManager.send('return');
+      navigation.goBack();
+    }
+  }
+
   useFocusEffect(
     React.useCallback(() => {
-      console.log(id);
       Orientation.lockToLandscapeLeft();
       return () => {
         Orientation.unlockAllOrientations();
@@ -82,6 +89,13 @@ function Airkart({ route }) {
           </TouchableHighlight>
         </View>
       </View>
+      <View onTouchStart={() => sendReturn()} onTouchEnd={() => sendReturn()} style={Style.down}>
+        <TouchableHighlight style={Style.option}>
+          <View>
+            <Image style={Style.image} source={Return} />
+          </View>
+        </TouchableHighlight>
+      </View>
     </View>
   );
 }
@@ -92,6 +106,9 @@ Airkart.propTypes = {
       connManager: PropTypes.object.isRequired,
       id: PropTypes.number.isRequired,
     }),
+  }).isRequired,
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
 };
 
