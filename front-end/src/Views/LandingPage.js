@@ -63,18 +63,7 @@ function LandingPage(props) {
           </div>
         </div>
       )}
-      {props.ids.length === 2 && (
-        <div className="TextBox">
-          <div className="inTextBox">
-            <h4>You can now select a game in your game collection!</h4>
-            <div className="GameCollectionButton">
-              <button onClick={handleRoute} className="inGameCollectionButton">
-                Let's choose a game!
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {props.ids.length === 2 && history.push("/collection")}
     </div>
   );
 }
